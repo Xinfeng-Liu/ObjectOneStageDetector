@@ -130,9 +130,6 @@ class FCOSPredictionNetwork(nn.Module):
             class_logits[l] = self.pred_cls(self.stem_cls(feats_per_fpn_level[l])).flatten(start_dim=2).permute(0, 2, 1)
             boxreg_deltas[l] = self.pred_box(self.stem_box(feats_per_fpn_level[l])).flatten(start_dim=2).permute(0, 2, 1)
             centerness_logits[l] = self.pred_ctr(self.stem_box(feats_per_fpn_level[l])).flatten(start_dim=2).permute(0, 2, 1)
-        ######################################################################
-        #                           END OF YOUR CODE                         #
-        ######################################################################
 
         return [class_logits, boxreg_deltas, centerness_logits]
 
@@ -587,7 +584,6 @@ class FCOS(nn.Module):
             pred_classes_all_levels.append(level_pred_classes)
             pred_scores_all_levels.append(level_pred_scores)
 
-        ######################################################################
         # Combine predictions from all levels and perform NMS.
         pred_boxes_all_levels = torch.cat(pred_boxes_all_levels)
         pred_classes_all_levels = torch.cat(pred_classes_all_levels)
